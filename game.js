@@ -15,9 +15,9 @@ class RythmCandy {
         this.path = [];
         this.particles = [];
         
-        this.gameSpeed = 50;
+        this.gameSpeed = 100;
         this.pathProgress = 0;
-        this.targetSpacing = 100;
+        this.targetSpacing = 50;
         
         this.hitZoneRadius = 50;
         this.perfectZoneRadius = 20;
@@ -198,9 +198,9 @@ class RythmCandy {
         this.score = 0;
         this.level = 1;
         this.energy = 3;
-        this.gameSpeed = 50;
+        this.gameSpeed = 100;
         this.pathProgress = 0;
-        this.targetSpacing = 100;
+        this.targetSpacing = 50;
         this.particles = [];
         this.initializePlayer();
         this.updateUI();
@@ -335,8 +335,8 @@ class RythmCandy {
         const newLevel = Math.floor(this.score / 500) + 1;
         if (newLevel > this.level) {
             this.level = newLevel;
-            this.gameSpeed += 10.0;
-            this.targetSpacing = Math.max(80, this.targetSpacing - 20);
+            this.gameSpeed += 20.0;
+            this.targetSpacing = Math.max(30, this.targetSpacing - 10);
             this.showGameMessage(`LEVEL ${this.level}!`, 2000);
             this.generateTargets();
         }
@@ -377,7 +377,7 @@ class RythmCandy {
     update(deltaTime) {
         if (this.gameState !== 'playing') return;
         
-        this.pathProgress += deltaTime * 0.005 * this.gameSpeed;
+        this.pathProgress += deltaTime * 0.1 * this.gameSpeed;
         const playerDistance = this.pathProgress * this.gameSpeed;
         const playerPosition = this.getPositionAtDistance(playerDistance);
         
