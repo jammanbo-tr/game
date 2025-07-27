@@ -15,9 +15,9 @@ class RythmCandy {
         this.path = [];
         this.particles = [];
         
-        this.gameSpeed = 100;
+        this.gameSpeed = 1500;
         this.pathProgress = 0;
-        this.targetSpacing = 50;
+        this.targetSpacing = 20;
         
         this.hitZoneRadius = 50;
         this.perfectZoneRadius = 20;
@@ -198,9 +198,9 @@ class RythmCandy {
         this.score = 0;
         this.level = 1;
         this.energy = 3;
-        this.gameSpeed = 100;
+        this.gameSpeed = 1500;
         this.pathProgress = 0;
-        this.targetSpacing = 50;
+        this.targetSpacing = 20;
         this.particles = [];
         this.initializePlayer();
         this.updateUI();
@@ -335,8 +335,8 @@ class RythmCandy {
         const newLevel = Math.floor(this.score / 500) + 1;
         if (newLevel > this.level) {
             this.level = newLevel;
-            this.gameSpeed += 20.0;
-            this.targetSpacing = Math.max(30, this.targetSpacing - 10);
+            this.gameSpeed += 300.0;
+            this.targetSpacing = Math.max(10, this.targetSpacing - 5);
             this.showGameMessage(`LEVEL ${this.level}!`, 2000);
             this.generateTargets();
         }
@@ -377,7 +377,7 @@ class RythmCandy {
     update(deltaTime) {
         if (this.gameState !== 'playing') return;
         
-        this.pathProgress += deltaTime * 0.1 * this.gameSpeed;
+        this.pathProgress += deltaTime * 1.5 * this.gameSpeed;
         const playerDistance = this.pathProgress * this.gameSpeed;
         const playerPosition = this.getPositionAtDistance(playerDistance);
         
@@ -401,15 +401,15 @@ class RythmCandy {
         }
         
         this.targets.forEach(target => {
-            target.pulsePhase += deltaTime * 0.02;
-            target.scale = 1 + Math.sin(target.pulsePhase) * 0.2;
+            target.pulsePhase += deltaTime * 0.3;
+            target.scale = 1 + Math.sin(target.pulsePhase) * 0.3;
         });
         
         this.particles = this.particles.filter(particle => {
             particle.x += particle.vx;
             particle.y += particle.vy;
-            particle.vy += 0.8;
-            particle.life -= deltaTime * 0.005;
+            particle.vy += 12.0;
+            particle.life -= deltaTime * 0.075;
             particle.size *= 0.99;
             return particle.life > 0 && particle.size > 0.5;
         });
